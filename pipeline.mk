@@ -12,8 +12,7 @@ pipeline: git-push
 	fly -t dev set-pipeline \
 		-n -p $(PIPELINE_NAME) \
 		-c cicd/pipeline.yml \
-		-v git_repo_url=$(REPO_URL) \
-		-v version_bump=minor \
+		-l cicd/properties.yml \
 		-l $(HOME)/.ssh/ci-credentials.yml
 
 	fly -t dev unpause-pipeline -p $(PIPELINE_NAME)

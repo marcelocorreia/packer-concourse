@@ -1,0 +1,2 @@
+git_repo_url: git@github.com:marcelocorreia/packer-concourse.git
+version_bump: minor
