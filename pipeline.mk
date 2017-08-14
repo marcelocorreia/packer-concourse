@@ -15,7 +15,7 @@ pipeline: git-push
 		-l cicd/properties.yml \
 		-l $(HOME)/.ssh/ci-credentials.yml
 
-	fly -t dev unpause-pipeline -p $(PIPELINE_NAME)
+#	fly -t dev unpause-pipeline -p $(PIPELINE_NAME)
 .PHONY: pipeline
 
 pipeline-destroy:
