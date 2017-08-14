@@ -7,7 +7,7 @@
   roles:
     - { role: marcelocorreia.apt }
     - { role: marcelocorreia.private-ip-service }
-    - { role: marcelocorreia.geerlingguy.ntp }
+    - { role: geerlingguy.ntp }
     - { role: marcelocorreia.docker-install }
     - { role: marcelocorreia.docker-compose-install }
     - { role: marcelocorreia.concourse-compose }
