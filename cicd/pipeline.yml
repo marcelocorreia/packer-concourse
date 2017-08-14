@@ -25,6 +25,8 @@ jobs:
     plan:
       - get: git-repo-master
         trigger: true
+      - put: resource_version
+        params: {bump: patch}
 
 
 
