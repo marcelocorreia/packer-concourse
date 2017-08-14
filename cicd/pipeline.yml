@@ -11,7 +11,7 @@ resources:
     type: semver
     source:
       driver: git
-      initial_version: 0.1.0
+      initial_version: 0.0.0
       uri: {{git_repo_url}}
       branch: version
       file: version
@@ -19,14 +19,13 @@ resources:
       username: {{github_user}}
 
 jobs:
-  - name: packer-bare-base
+  - name: packer-concourse
     serial: true
-    public: true
     plan:
       - get: git-repo-master
         trigger: true
       - put: resource_version
         params:
-          - bump: {{version_bump}}
+          - bump: minor
 
 
