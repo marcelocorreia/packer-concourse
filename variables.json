@@ -1,5 +1,5 @@
 {
-  "ami_name":"bare-base",
+  "ami_name":"concourse-compose",
   "playbooks_dir": "./",
   "roles_dir": "./roles",
   "source_ami":"ami-4e686b2d"
