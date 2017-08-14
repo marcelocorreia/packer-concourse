@@ -1,0 +1,30 @@
+---
+- name: Systemd private-ip.service
+  template:
+    src: private-ip.service.j2
+    dest: "{{systemd.path}}/private-ip.service"
+    mode: 0755
+
+- name: default env private-ip.service
+  template:
+    src: private-ip.sh.j2
+    dest: "{{env.file}}"
+    mode: 0755
+
+- name: default env private-ip.service
+  template:
+    src: private-ip.sh.j2
+    dest: "/usr/local/bin/private-ip.sh"
+    mode: 0755
+
+- name: default env private-ip.service
+  template:
+    src: private-ip-setup.sh.j2
+    dest: "/usr/local/bin/private-ip-setup.sh"
+    mode: 0755
+
+- name: Private IP as service
+  service:
+    enabled: true
+    name: private-ip
+    state: restarted

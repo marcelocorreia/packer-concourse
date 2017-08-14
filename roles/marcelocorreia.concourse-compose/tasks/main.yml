@@ -1,0 +1,37 @@
+---
+
+- name: Creates concourse dirs
+  file:
+    path: "{{item}}"
+    state: directory
+    owner: "{{docker.user}}"
+    group: docker
+  with_items:
+    - /opt/concourse
+    - /opt/concourse/base
+
+- name: Sets up Concourse files
+  template:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+    mode: 0755
+  with_items:
+    - src: concourse.j2.sh
+      dest: /etc/profile.d
+
+- name: Sets up Concourse files
+  template:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+    mode: 0755
+    owner: "{{docker.user}}"
+    group: docker
+  with_items:
+    - src: ../concourse/base/create-concourse-keys.sh
+      dest: /opt/concourse/base/create-concourse-keys.sh
+    - src: ../concourse/base/docker-compose.base.yml
+      dest: /opt/concourse/base/docker-compose.base.yml
+    - src: ../concourse/base/generate-compose.sh
+      dest: /opt/concourse/base/generate-compose.sh
+    - src: ../concourse/Makefile
+      dest: /opt/concourse/Makefile

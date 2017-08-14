@@ -1,0 +1,24 @@
+---
+- name: Registering plat version variable
+  command: /bin/uname -s
+  register: plat_version_cmd
+
+- set_fact:
+    plat_version: "{{ plat_version_cmd.stdout }}"
+
+- name: Registering arch version variable
+  command: /bin/uname -m
+  register: arch_version_cmd
+
+- set_fact:
+    arch_version: "{{ arch_version_cmd.stdout }}"
+
+- name: Downloading binary
+  become: true
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ plat_version }}-{{ arch_version }}"
+    dest: /usr/local/bin/docker-compose
+    mode: 0750
+    owner: "{{ docker.user }}"
+    group: "{{ docker.group }}"
+

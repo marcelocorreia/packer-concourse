@@ -1,0 +1,48 @@
+---
+- name: Setup Basic Stuff
+  hosts:
+    - "{{ hosts | default('all') }}"
+  become: true
+
+  roles:
+    - { role: marcelocorreia.apt }
+    - { role: marcelocorreia.private-ip-service }
+    - { role: marcelocorreia.geerlingguy.ntp }
+    - { role: marcelocorreia.docker-install }
+    - { role: marcelocorreia.docker-compose-install }
+    - { role: marcelocorreia.concourse-compose }
+
+  pre_tasks:
+    - name: Sets up hostname
+      hostname:
+        name: "{{ inventory_hostname }}"
+      become: true
+      tags:
+        - system
+        - hostname
+
+  post_tasks:
+    - name: Update all packages to the latest version
+      become: true
+      apt:
+        upgrade: safe
+
+    - name: Install awscli
+      pip:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+      with_items: "{{ pip_packages }}"
+
+
+  vars:
+    - ntp_timezone: Australia/Sydney
+    - apt_packages:
+      - { name: 'python-pip', state: 'present' }
+      - { name: 'zip', state: 'present' }
+      - { name: 'make', state: 'present' }
+      - { name: 'htop', state: 'present' }
+      - { name: 'parted', state: 'present' }
+      - { name: 'aptitude', state: 'present' }
+    - pip_packages:
+      - { name: 'awscli', state: 'present' }
+      - { name: 'boto', state: 'present' }

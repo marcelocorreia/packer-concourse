@@ -1,0 +1,6 @@
+{
+  "ami_name":"bare-base",
+  "playbooks_dir": "./",
+  "roles_dir": "./roles",
+  "source_ami":"ami-4e686b2d"
+}

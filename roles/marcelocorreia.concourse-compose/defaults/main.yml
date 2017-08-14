@@ -1,0 +1,9 @@
+---
+concourse:
+  external_url: "{{ concourse_external_url | default('http://localhost:8080') }}"
+  port: "{{ concourse_port | default('8080') }}"
+docker:
+  user: "{{ docker_user | default('docker')}}"
+net:
+  iface: "{{ hosts | default('eth0') }}"
+

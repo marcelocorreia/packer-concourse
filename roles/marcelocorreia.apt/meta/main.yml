@@ -1,0 +1,17 @@
+# file: oracle-jdk/meta/main.yml
+
+galaxy_info:
+  author: Marcelo Correia
+  company: correia.io
+  description: "Installs & Removes APT packages"
+  min_ansible_version: 1.4
+  license: MIT
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - system
+  - development
+
+dependencies: []

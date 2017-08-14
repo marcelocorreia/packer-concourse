@@ -1,0 +1,65 @@
+- name: Registering kernel version variable
+  shell: /bin/uname -r
+  register: kernel_version_cmd
+
+- set_fact:
+    kernel_version: "{{ kernel_version_cmd.stdout }}"
+
+- name: Registering LSB release
+  shell: lsb_release -cs
+  register: lsb_release_cmd
+
+- set_fact:
+    lsb_release: "{{ lsb_release_cmd.stdout }}"
+
+
+#
+#
+#- name: Registering plat version variable
+#  command: /bin/uname -s
+#  register: plat_version_cmd
+#
+#- set_fact:
+#    plat_version: "{{ plat_version_cmd.stdout }}"
+#
+#- name: Registering arch version variable
+#  command: /bin/uname -m
+#  register: arch_version_cmd
+#
+#- set_fact:
+#    arch_version: "{{ arch_version_cmd.stdout }}"
+
+- name: Adding APT key
+  become: true
+  apt_key:
+    url: "https://apt.dockerproject.org/gpg"
+    state: present
+
+- name: Adding docker APT repository
+  become: true
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo/ ubuntu-{{ lsb_release }} main"
+    state: present
+    filename: "docker"
+
+
+- name: Installing APT packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    update_cache: true
+  with_items:
+    - "linux-image-extra-{{ kernel_version }}"
+    - "linux-image-extra-virtual"
+    - "docker-engine"
+
+- name: Add user to docker group
+  become: true
+  user:
+    name: "{{docker.user}}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
+    state: present
+
+

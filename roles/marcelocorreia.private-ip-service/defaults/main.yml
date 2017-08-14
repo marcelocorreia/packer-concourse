@@ -1,0 +1,10 @@
+---
+systemd:
+  path: "{{ hosts | default('/lib/systemd/system') }}"
+net:
+  iface: "{{ hosts | default('eth0') }}"
+bash:
+  path: "{{ hosts | default('/usr/local/bin') }}"
+env:
+  file: "{{ hosts | default('/etc/profile.d/private-ip.sh') }}"
+  etc_default_file: "{{ hosts | default('/etc/default/private-ip') }}"

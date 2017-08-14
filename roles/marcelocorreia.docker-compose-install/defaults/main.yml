@@ -1,0 +1,5 @@
+---
+docker:
+  user: "{{ docker_user | default('docker')}}"
+  group: "{{ docker_group | default('docker')}}"
+docker_compose_version: "1.11.2"

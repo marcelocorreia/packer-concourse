@@ -1,0 +1,8 @@
+[Unit]
+Description=Service that writes the private ip to {{env.file}} and set PRIVATE_IP env variable
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash /usr/local/bin/private-ip-setup.sh
+TimeoutSec=30s

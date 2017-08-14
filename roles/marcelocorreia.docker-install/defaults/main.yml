@@ -1,0 +1,5 @@
+---
+docker:
+  user: "{{ docker_user | default('docker')}}"
+
+

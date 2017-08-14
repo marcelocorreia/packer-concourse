@@ -1,0 +1,6 @@
+#!/bin/bash
+IP=$(ifconfig {{ net.iface }} | grep "inet addr" | awk '{ print substr($2,6) }')
+export PRIVATE_IP=$IP
+
+echo $IP
+

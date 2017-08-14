@@ -1,0 +1,12 @@
+---
+- src: geerlingguy.ntp
+- src: git+ssh://git@github.com/marcelocorreia/apt.git
+  name: marcelocorreia.apt
+- src: git+ssh://git@github.com/marcelocorreia/private-ip-service.git
+  name: marcelocorreia.private-ip-service
+- src: git+ssh://git@github.com/marcelocorreia/docker-install.git
+  name: marcelocorreia.docker-install
+- src: git+ssh://git@github.com/marcelocorreia/docker-compose-install.git
+  name: marcelocorreia.docker-compose-install
+- src: git+ssh://git@github.com/marcelocorreia/concourse-compose.git
+  name: marcelocorreia.concourse-compose

@@ -1,0 +1,46 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "ap-southeast-2",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "t2.nano",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{user `ami_name`}}-{{user `version`}}",
+      "tags": {
+        "Name": "{{user `ami_name`}}",
+        "Release": "{{user `version`}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "./setup.sh"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "playbook.yml",
+      "role_paths": [
+        "{{user `roles_dir`}}/marcelocorreia.apt",
+        "{{user `roles_dir`}}/marcelocorreia.private-ip-service",
+        "{{user `roles_dir`}}/geerlingguy.ntp",
+        "{{user `roles_dir`}}/marcelocorreia.docker-install",
+        "{{user `roles_dir`}}/marcelocorreia.docker-compose-install",
+        "{{user `roles_dir`}}/marcelocorreia.concourse-compose"
+      ]
+    }
+  ],
+  "variables": {
+    "aws_access_key": "{{env `aws_access_key` }}",
+    "aws_secret_access_key": "{{env `aws_secret_access_key`}}",
+    "ami_name": "",
+    "source_ami": "",
+    "roles_dir": "",
+    "playbooks_dir": "",
+    "update": "false",
+    "version": ""
+  }
+}
